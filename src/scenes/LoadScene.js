@@ -1,8 +1,6 @@
 export class LoadScene extends Phaser.Scene {  
     constructor() {
-        super({
-            key: "LOAD"
-        });
+        super('LOAD');
     } 
 
     init() {
@@ -10,10 +8,12 @@ export class LoadScene extends Phaser.Scene {
     }
 
     preload() {
+        webSocket.connect();
+
         this.load.image("background_load", "./assets/background-load.jpg");
         this.load.image("background_menu", "./assets/background-menu.jpg");
 
-        //this.load.audio("landing_sound", "./assets/Battle.mp3");
+        this.load.audio("landing_sound", "./assets/landing-sound.mp3");
 
         let progressBar = this.add.graphics({
             fillStyle: {
@@ -23,7 +23,7 @@ export class LoadScene extends Phaser.Scene {
 
         this.load.on("progress", (percent)=> {
 
-            progressBar.fillRect(0, this.game.renderer.height / 3,
+            progressBar.fillRect(0, this.game.renderer.height / 2,
                 this.game.renderer.width * percent, 50);
             console.log(percent);
         })
